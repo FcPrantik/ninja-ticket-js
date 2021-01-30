@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-class count" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button id="first-class increase"><i class="far fa-plus-square"></i></button>
+                    <button id="first-class decrease"><i class="far fa-minus-square"></i></button>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economy count" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button id="economy increase"><i class="far fa-plus-square"></i></button>
+                    <button id="economy decrease"><i class="far fa-minus-square"></i></button>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="first-class total" >$0</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$0</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-total">$0</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <script>
+        
+        function handleFirstClassCount(increase) {
+            const ticketInput = document.getElementById('first-class count');
+            const firstClassCount = parseInt(ticketInput.value)
+            let firstClassNewCount = firstClassCount
+            if(increase == true){
+                firstClassNewCount = firstClassCount + 1;
+            }
+            if(increase == false && firstClassCount >0){
+                firstClassNewCount = firstClassCount - 1;
+            }
+            ticketInput.value = firstClassNewCount;
+            const firstClassTotal = firstClassNewCount * 150;
+        }
+
+        function handleEconomyCount(increase) {
+            const ticketInput = document.getElementById('economy count');
+            const economyClassCount = parseInt(ticketInput.value)
+            let economyClassNewCount = economyClassCount
+            if(increase == true){
+                economyClassNewCount = economyClassCount + 1;
+            }
+            if(increase == false && economyClassCount >0){
+                economyClassNewCount = economyClassCount - 1;
+            }
+            ticketInput.value = economyClassNewCount;
+            const economyClassTotal = economyClassNewCount * 100;
+        }
+
+        function calculateSubTotal(){
+            const ticketFirstClassInput = document.getElementById('first-class count');
+            const ticket1Count = parseInt(ticketFirstClassInput.value);
+
+            const ticketEconomyInput = document.getElementById('economy count');
+            const ticket2Count = parseInt(ticketEconomyInput.value);
+
+            const subTotalPrice = ticket1Count * 150 + ticket2Count * 100;
+            document.getElementById('first-class total').innerText = '$' + subTotalPrice;
+            const tax = subTotalPrice * 0.1;
+            document.getElementById('tax-amount').innerText = '$' + tax;
+            const grandTotal = subTotalPrice + tax;
+            document.getElementById('grand-total').innerText = '$' + grandTotal;
+        }
+
+        document.getElementById('first-class increase').addEventListener('click', function(){
+            handleFirstClassCount(true);
+            calculateSubTotal();
+        });
+
+        document.getElementById('first-class decrease').addEventListener('click', function(){
+            handleFirstClassCount(false);
+            calculateSubTotal();
+        });
+
+        document.getElementById('economy increase').addEventListener('click', function(){
+            handleEconomyCount(true);
+            // const ticketInput = document.getElementById('economy count');
+            // const economyClassCount = parseInt(ticketInput.value)
+            // const economyClassNewCount = economyClassCount + 1;
+            // ticketInput.value = economyClassNewCount;
+            // const economyClassTotal = economyClassNewCount * 100;
+            calculateSubTotal();
+            
+        });
+
+        document.getElementById('economy decrease').addEventListener('click', function(){
+            handleEconomyCount(false);
+            // const ticketInput = document.getElementById('economy count');
+            // const economyClassCount = parseInt(ticketInput.value)
+            // const economyClassNewCount = economyClassCount - 1;
+            // ticketInput.value = economyClassNewCount;
+            // const economyClassTotal = economyClassNewCount * 100;
+            calculateSubTotal();
+            
+        });
+                   
+    </script>
+
+    <!--Thank You-->
+</body>
+
+</html>
